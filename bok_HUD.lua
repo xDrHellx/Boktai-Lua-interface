@@ -9,7 +9,7 @@ print("Game Info: " ..gameinfo.getboardtype());
 -- Loads corresponding HUD based on which game is running
 function load_HUD()
 
-    local code = bit.band(memory.read_u32_le(0x080000AC), 0xFFFFFF);
+    local code = memory.read_u32_le(0x080000AC) & 0xFFFFFF;
 
     if(code == 4797269) then
         return dofile("bok1/HUD.lua");

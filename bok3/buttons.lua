@@ -18,7 +18,7 @@ local function processInputs()
 
 	-- Get buttons pressed for both controller & keyboard
 	buttons.held = joypad.get(); 		-- controller
-	buttons.keys.held = inputs.get(); 	-- keyboard
+	buttons.keys.held = input.get(); 	-- keyboard
 
 	-- Update each button if it has changed
 	-- For example releasing the A button after holding it down
