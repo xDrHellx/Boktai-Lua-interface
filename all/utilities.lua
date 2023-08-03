@@ -39,4 +39,15 @@ function utilities.dump(data, showAsArray, level)
    	end;
 end;
 
+-- Retrieve value from a memory address
+-- @param string address Memory address
+-- @param string domain Domain
+-- @return mixed Value
+function utilities.getValueFromMemory(address, domain)
+
+	-- Handling optional parameters	& returning value
+	domain = (domain and domain or 0xFFFFFF);
+ 	return memory.read_u32_le(address) & domain;
+end;
+
 return utilities;
