@@ -40,7 +40,9 @@ addresses.bike = {};
 addresses.bike.points								= 0x03CBB2;
 addresses.bike.hp									= 0x00F6F8;
 addresses.bike.ene									= 0x00F6F4;
+addresses.bike.base_speed							= 0x00F6AC;
 addresses.bike.scrolling							= 0x0004E0;
+addresses.bike.progress								= 0x00F730;
 
 -- "Previous" values
 --
