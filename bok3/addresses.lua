@@ -27,8 +27,8 @@ addresses.django.str								= 0x03C41C;
 addresses.solls = {};
 
 addresses.solls.solls_on_self						= 0x03CBB0;
-addresses.solls.solar_bank							= 0x03C90C;
-addresses.solls.dark_loan							= 0x03CB7C;
+addresses.solls.solar_bank							= 0x03CB7C;
+addresses.solls.dark_loan							= 0x03C90C;
 
 -- Bike
 --
@@ -68,8 +68,8 @@ addresses.previous.django.current_exp				= 0x03CF48;
 
 -- "Previous" solls values
 addresses.previous.solls.solls_on_self				= 0x03D6B0;
-addresses.previous.solls.dark_loan					= 0x03D40C;
 addresses.previous.solls.solar_bank					= 0x03D67C;
+addresses.previous.solls.dark_loan					= 0x03D40C;
 
 -- "Previous" bike values
 addresses.previous.bike.points						= 0x03D6B2;
