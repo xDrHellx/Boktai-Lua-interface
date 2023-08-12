@@ -101,7 +101,7 @@ function utilities.setValueForMemory(value, address, domain, readType)
 		readType = 'u32_le';
 	end;
 
-	-- Set the the name & parameters for the function to use to set the value for the memory address
+	-- Set the name & parameters for the function to use to set the value for the memory address
 	local writingFunction = 'memory.write_'..readType..'('..address..', '..value..domain..')';
 
 	-- Execute the function
