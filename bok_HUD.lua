@@ -29,7 +29,7 @@ local hud = load_HUD();
 if hud then
     hud.initialize();
     while true do
-        -- hud.update();
+        hud.update();
         emu.frameadvance();
     end
 else

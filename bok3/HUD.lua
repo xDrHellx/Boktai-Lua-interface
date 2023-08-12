@@ -16,4 +16,9 @@ function hud.initialize()
 	-- Initializes interface shown on screen
 end;
 
+-- Updates the HUD
+function hud.update()
+	
+end;
+
 return hud;
