@@ -80,4 +80,37 @@ function utilities.getValueFromMemory(address, domain, readType)
 	end;
 end;
 
+-- Sets a value for a memory address
+-- @param int value Value to set
+-- @param string address Memory address
+-- @param string domain Memory domain
+-- @param string readType Type used for reading the address (u32_le, s16_le, ...)
+function utilities.setValueForMemory(value, address, domain, readType)
+	
+	-- Handling optional parameters
+	if (utilities.isEmpty(domain) == false) then
+
+		-- If a domain is passed, add a comma and quotes
+		-- because it will be passed as a parameter in the function
+		domain = ', "'..domain..'"';
+	else
+		domain = '';
+	end;
+
+	if (readType == nil or readType == '') then
+		readType = 'u32_le';
+	end;
+
+	-- Set the the name & parameters for the function to use to set the value for the memory address
+	local writingFunction = 'memory.write_'..readType..'('..address..', '..value..domain..')';
+
+	-- Execute the function
+	-- If a domain was passed, do not do the bitwise operation
+	if (utilities.isEmpty(domain) == false) then
+		return load(writingFunction)();
+	else
+ 		return load(writingFunction)() & 0xFFFFFF;
+	end;
+end;
+
 return utilities;
