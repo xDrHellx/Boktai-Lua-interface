@@ -14,11 +14,11 @@ function hud.initialize()
 	hud.buttons = require("bok3/buttons");
 
 	-- Initializes interface shown on screen
+	gui.addmessage('Initialized Shinbok Interface');
 end;
 
 -- Updates the HUD
 function hud.update()
-	
 end;
 
 return hud;

@@ -14,6 +14,7 @@ function hud.initialize()
 	-- hud.buttons = require("bok1/buttons");
 
 	-- Initializes interface shown on screen
+	gui.addmessage('Initialized Boktai Interface');
 end;
 
 -- Updates the HUD

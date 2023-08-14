@@ -14,6 +14,7 @@ function hud.initialize()
 	-- hud.buttons = require("bok2/buttons");
 
 	-- Initializes interface shown on screen
+	gui.addmessage('Initialized Zoktai Interface');
 end;
 
 -- Updates the HUD
