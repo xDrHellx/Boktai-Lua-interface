@@ -11,7 +11,8 @@ local utilities = dofile("all/utilities.lua");
 -- Loads corresponding HUD based on which game is running
 function load_HUD()
 
-    local code = utilities.getValueFromMemory(0x080000AC);
+    -- Retrieve the code for the current game
+    local code = utilities.getGameCode();
 
     if(code == 4797269) then
         return dofile("bok1/HUD.lua");
@@ -34,6 +35,7 @@ if hud then
     end
 else
     print("\nGame not recognized!\n");
+    gui.addmessage("Game not recognized!");
     while true do
         emu.frameadvance(); -- idle until a new ROM is loaded
     end

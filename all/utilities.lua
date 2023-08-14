@@ -47,12 +47,16 @@ function utilities.dump(data, showAsArray, level)
    	end;
 end;
 
+-- Retrieve the game code to know which game is running
+-- @return string Game code
+function utilities.getGameCode()
+	return memory.read_u32_le(0x080000AC) & 0xFFFFFF;
+end;
+
 -- Retrieve value from a memory address
 -- @param string address Memory address
--- @param string domain Memory domain
 -- @param string readType Type used for reading the address (u32_le, s16_le, ...)
 -- @return mixed Value
-function utilities.getValueFromMemory(address, domain, readType)
 
 	-- Handling optional parameters
 	if (utilities.isEmpty(domain) == false) then
@@ -72,20 +76,12 @@ function utilities.getValueFromMemory(address, domain, readType)
 	local readingFunction = 'return memory.read_'..readType..'('..address..domain..')';
 
 	-- Execute the function & return the value
-	-- If a domain was passed, do not do the bitwise operation
-	if (utilities.isEmpty(domain) == false) then
-		return load(readingFunction)();
-	else
- 		return load(readingFunction)() & 0xFFFFFF;
-	end;
 end;
 
 -- Sets a value for a memory address
 -- @param int value Value to set
 -- @param string address Memory address
 -- @param string domain Memory domain
--- @param string readType Type used for reading the address (u32_le, s16_le, ...)
-function utilities.setValueForMemory(value, address, domain, readType)
 	
 	-- Handling optional parameters
 	if (utilities.isEmpty(domain) == false) then
@@ -97,19 +93,12 @@ function utilities.setValueForMemory(value, address, domain, readType)
 		domain = '';
 	end;
 
-	if (readType == nil or readType == '') then
-		readType = 'u32_le';
 	end;
 
 	-- Set the name & parameters for the function to use to set the value for the memory address
-	local writingFunction = 'memory.write_'..readType..'('..address..', '..value..domain..')';
 
 	-- Execute the function
-	-- If a domain was passed, do not do the bitwise operation
-	if (utilities.isEmpty(domain) == false) then
-		return load(writingFunction)();
 	else
- 		return load(writingFunction)() & 0xFFFFFF;
 	end;
 end;
 
