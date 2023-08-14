@@ -58,6 +58,7 @@ addresses.previous.bike = {};
 
 -- "Previous" Django values
 addresses.previous.django.hp						= 0x03CF28;
+addresses.previous.django.ene						= 0x03CF2C;
 addresses.previous.django.trc						= 0x03D508;
 addresses.previous.django.stat_points_to_allocate	= 0x021A4C;
 addresses.previous.django.vit						= 0x03CF18;
@@ -74,6 +75,18 @@ addresses.previous.solls.dark_loan					= 0x03D40C;
 -- "Previous" bike values
 addresses.previous.bike.points						= 0x03D6B2;
 addresses.previous.bike.hp							= 0x006A44;
+
+-- "Short" addresses
+-- Used in some cases where the values we need are stored in different memory addresses
+-- For example the memory address for Django's current HP is different based on which "room sections" he is in
+addresses.short = {};
+addresses.short.django = {};
+
+-- Room
+addresses.short.room								= 0x02000580;
+
+-- Django
+addresses.short.django.hp							= 0x424;
 
 -- Returns addresses
 return addresses;
