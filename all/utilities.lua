@@ -56,7 +56,9 @@ end;
 -- Retrieve value from a memory address
 -- @param string address Memory address
 -- @param string readType Type used for reading the address (u32_le, s16_le, ...)
+-- @param string domain Memory domain
 -- @return mixed Value
+function utilities.getValueFromMemory(address, readType, domain, test)
 
 	-- Handling optional parameters
 	if (utilities.isEmpty(domain) == false) then
@@ -76,12 +78,16 @@ end;
 	local readingFunction = 'return memory.read_'..readType..'('..address..domain..')';
 
 	-- Execute the function & return the value
+	-- In this case we don't do bitwise operation
+	return load(readingFunction)();
 end;
 
 -- Sets a value for a memory address
 -- @param int value Value to set
 -- @param string address Memory address
+-- @param string writeType Type used for writing on the address (u32_le, s16_le, ...)
 -- @param string domain Memory domain
+function utilities.setValueForMemory(value, address, writeType, domain)
 	
 	-- Handling optional parameters
 	if (utilities.isEmpty(domain) == false) then
@@ -93,12 +99,59 @@ end;
 		domain = '';
 	end;
 
+	if (utilities.isEmpty(writeType) == false) then
+		writeType = writeType;		
+	else
+		writeType = 'u32_le';
 	end;
 
 	-- Set the name & parameters for the function to use to set the value for the memory address
+	local writingFunction = 'return memory.write_'..writeType..'('..address..', '..value..domain..')'; -- return not necessary
 
 	-- Execute the function
+	-- In this case we don't do bitwise operation
+	return load(writingFunction)();
+end;
+
+-- Sets a value for a "short" memory address
+--
+-- A "short" memory address corresponds to a part used to store value in memory
+-- However the "main" memory address used in-game can change
+-- By setting the value on the "short" memory address, it is possible to update the value even in this case
+--
+-- Example :
+-- The memory address for Django's current HP changes between "room sections"
+-- Thus we need to use this to set it without knowing which room Django is in
+--
+-- @param int value Value to set
+-- @param string shortAddress Short memory address 
+-- @param string pointer Pointer address in memory that will be used when setting the value
+-- @param string writeType Type used for writing on the full address (u32_le, s16_le, ...)
+-- @param string pointerReadType Type used for reading the pointer address (u32_le, s16_le, ...)
+function utilities.setValueForShortMemory(value, shortAddress, pointer, writeType, pointerReadType)
+
+	-- Handling optional parameters
+	if (utilities.isEmpty(writeType) == false) then
+		writeType = writeType;
 	else
+		writeType = 's16_le';
+	end;
+
+	if (utilities.isEmpty(pointerReadType) == false) then
+		pointerReadType = pointerReadType;
+	else
+		pointerReadType = 'u32_le';
+	end;
+
+	-- Get the pointer
+	local pointer = utilities.getValueFromMemory(pointer, pointerReadType);
+
+	-- If the pointer is valid
+	if p ~= 0 then
+		
+		-- Combine it with the short memory address to get the "full" address
+		local fullAddress = pointer + shortAddress;
+		return utilities.setValueForMemory(value, fullAddress, writeType);
 	end;
 end;
 
