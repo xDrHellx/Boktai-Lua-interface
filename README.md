@@ -1,3 +1,9 @@
+# Obsolete
+This project has been replaced with the external tool version :  
+https://github.com/xDrHellx/Bok-Interface
+
+-------------------------------------
+
 # Boktai-Lua-interface
 Interface in Lua for the Boktai games
 
